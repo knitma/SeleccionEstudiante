@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
-
+from datetime import date
+from datetime import datetime
 from .declarative_base import Base
 
 class Actividad(Base):

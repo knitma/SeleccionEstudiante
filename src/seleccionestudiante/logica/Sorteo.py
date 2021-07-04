@@ -2,6 +2,8 @@ from src.seleccionestudiante.modelo.Asignatura import Asignatura
 from src.seleccionestudiante.modelo.Actividad import Actividad
 from src.seleccionestudiante.modelo.Equipo import Equipo
 from src.seleccionestudiante.modelo.Estudiante import Estudiante
+from datetime import date
+from datetime import datetime
 
 from src.seleccionestudiante.modelo.declarative_base import engine, Base, session
 
@@ -21,9 +23,11 @@ class Sorteo():
             return False
 
     def agregar_actividad(self, denominacionActividad, fecha):
-        busqueda = session.query(Actividad).filter(Actividad.denominacionActividad == denominacionActividad, fecha==fecha).all()
+        busqueda = session.query(Actividad).filter(Actividad.denominacionActividad==denominacionActividad,Actividad.fecha==fecha).all()
         if len(busqueda) == 0:
-            actividad = Actividad(denominacionActividad = denominacionActividad, fecha = fecha)
+            print(fecha)
+            print("hola")
+            actividad = Actividad( denominacionActividad = denominacionActividad, fecha = fecha)
             session.add(actividad)
             session.commit()
             return True
@@ -41,7 +45,7 @@ class Sorteo():
             return False
 
     def agregar_estudiante(self, apellidoPaterno, apellidoMaterno, nombres, elegible):
-        busqueda = session.query(Estudiante).filter(Estudiante.apellidoPaterno == apellidoPaterno, Estudiante.apellidoMaterno == apellidoMaterno, nombres == nombres, elegible == elegible ).all()
+        busqueda = session.query(Estudiante).filter(Estudiante.apellidoPaterno == apellidoPaterno, Estudiante.apellidoMaterno == apellidoMaterno, Estudiante.nombres == nombres, Estudiante.elegible == elegible ).all()
         if len(busqueda) == 0:
             estudiante = Estudiante(apellidoPaterno = apellidoPaterno, apellidoMaterno = apellidoMaterno, nombres = nombres, elegible = elegible)
             session.add(estudiante)

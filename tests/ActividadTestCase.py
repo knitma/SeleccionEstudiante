@@ -6,6 +6,7 @@ from src.seleccionestudiante.modelo.Equipo import Equipo
 from src.seleccionestudiante.modelo.Actividad import Actividad
 from src.seleccionestudiante.logica.Sorteo import Sorteo
 from src.seleccionestudiante.modelo.declarative_base import Session
+from datetime import date
 
 class AsignaturaTestCase ( unittest.TestCase ) :
     def setUp ( self ) :
@@ -47,9 +48,9 @@ class AsignaturaTestCase ( unittest.TestCase ) :
 
         # crear actividad
         self.actividad1 = Actividad ( denominacionActividad = "Prueba unitaria" ,
-                                 fecha = datetime ( 2021 , 9 , 28 , 00 , 00 , 00 , 00000 ) )
-        self.actividad2 = Actividad ( denominacionActividad = "TDD" , fecha = datetime ( 2021 , 9 , 25 , 00 , 00 , 00 , 00000 ) )
-        self.actividad3 = Actividad ( denominacionActividad = "BDD" , fecha = datetime ( 2021 , 9 , 25 , 00 , 00 , 00 , 00000 ) )
+                                 fecha = date ( 2021 , 9 , 28 ) )
+        self.actividad2 = Actividad ( denominacionActividad = "TDD", fecha = date ( 2021 , 9 , 25 ) )
+        self.actividad3 = Actividad ( denominacionActividad = "BDD" , fecha = date ( 2021 , 9 , 25 ) )
         self.session.add ( self.actividad1 )
         self.session.add ( self.actividad2 )
         self.session.add ( self.actividad3 )
@@ -101,10 +102,10 @@ class AsignaturaTestCase ( unittest.TestCase ) :
 
     def test_agregar_actividad ( self ) :
         resultado = self.sorteo.agregar_actividad(denominacionActividad = "Prueba de calidad" ,
-                                                    fecha = datetime ( 2021 , 8 , 18 , 00 , 00 , 00 , 00000 ) )
+                                                    fecha = date ( 2020 , 8 , 18 ) )
         self.assertEqual ( resultado , True )
 
     def test_agregar_actividad_repetido(self):
-        resultado = self.sorteo.agregar_actividad(denominacionActividad = "Prueba unitaria" ,
-                                                    fecha = datetime ( 2021 , 9 , 28 , 00 , 00 , 00 , 00000 ))
+        resultado = self.sorteo.agregar_actividad(denominacionActividad = "BDD" , fecha = date ( 2021 , 9 , 25 ) )
         self.assertEqual(resultado, False)
+
